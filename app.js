@@ -47,20 +47,23 @@ function startApp(loader, resources) {
   // change the scale of the mask when user clicks
   app.stage.on("click", adjustMask);
   function adjustMask( event ){
-    console.log("click");
     switch(mask.state){
       case 1:
         mask.state = 2;
+        mask.alpha = 0;
+        app.stage.mask = null;
         setScale( mask, 2 );
         break;
       case 2:
-        mask.alpha = 0;
         mask.state = 0;
+        mask.alpha = 0;
+        app.stage.mask = mask;
         setScale( mask, 0.1 );
         break;
       default:
-        mask.alpha = 1;
         mask.state = 1;
+        mask.alpha = 1;
+        app.stage.mask = mask;
         setScale( mask, 1 );
     }
     mask.position.x = event.data.global.x - mask.width / 2;
